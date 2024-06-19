@@ -1,4 +1,2 @@
-/venv
-/sentiment_analysis_1/aclImdb
-/dataset
-model.pth
+/models
+/data
