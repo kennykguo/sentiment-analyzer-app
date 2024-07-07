@@ -1,0 +1,6 @@
+django
+pymongo
+fastapi
+uvicorn
+httpx
+torch

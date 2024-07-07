@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis Result</title>
+</head>
+<body>
+    <h1>Sentiment Analysis Result</h1>
+    <p>Text: {{ sentiment.text }}</p>
+    <p>Score: {{ sentiment.score }}</p>
+    <a href="{% url 'index' %}">Analyze another sentiment</a>
+</body>
+</html>
