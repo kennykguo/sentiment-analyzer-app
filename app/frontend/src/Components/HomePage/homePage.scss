@@ -1,0 +1,51 @@
+.home {
+    &__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+    }
+
+    &__context {
+        letter-spacing: 0.03em;
+        .home__title {
+            font: {
+                    weight: 400;
+                    size: 50px;
+                }
+            line-height: 1.2;
+        }
+
+        .home__descr {
+                line-height: 1.8;
+        }
+
+        .home__ps {
+            font-weight: 900;
+        }
+        
+        width: 500px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .btn {
+                &__try {
+                    background-color: #284B5D;
+                    color: #fafafa;
+                    display: block;
+                    width: 250px;
+                    padding: 13px 30px;
+                    border: 1px solid #284B5D;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font: {
+                        weight: 400;
+                        size:20px;
+                    }
+                }
+            }
+    }
+
+    
+}

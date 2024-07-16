@@ -1,0 +1,70 @@
+.footer {
+    background-color: #3F7589;
+    color: #fafafa;
+    
+    font: {
+        size: 17px;
+    }
+    padding: 80px 0;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    &__logo {
+        // margin: 0 auto 30px;
+        display: block;
+        width: 80px;
+        margin-bottom: 30px;
+        height: auto;
+    }
+
+    &__main {
+        width: 200px;
+        text-align: left;
+        line-height: 1.2;
+    }
+    
+    &__copyright {
+        margin-top: 50px;
+        font-size: 14px;
+       
+    }
+
+    .navigation__item:first-child a {
+        font-weight: 900;
+        cursor: auto;
+    }
+
+    &__nav {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
+        a {
+            color: #fafafa;
+            text-decoration: none;
+        }
+
+        
+        
+        list: {
+            style: {
+                position: inside;
+                type: none;
+            }
+        }
+
+        .btn {
+            &__login {
+                text-decoration: none;
+            display: block;
+            padding: 13px 30px;
+            border: 1px solid #fafafa;
+            color: #fafafa;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+                background-color: inherit;
+            }
+        }
+
+    }
+}
