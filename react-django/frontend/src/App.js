@@ -1,20 +1,3 @@
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <div>
-//         {/* Grab data from backend */}
-//         <h1>BB Tech Company</h1>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import axois from 'axios';
 import React from 'react';
 
