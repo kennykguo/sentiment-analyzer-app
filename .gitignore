@@ -1,4 +1,3 @@
-/models
-/data
-/google-maps-scraper
+ml-setup/models
+ml-setup/data
 /venv
