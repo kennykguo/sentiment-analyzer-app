@@ -16,12 +16,15 @@ class RegistrationView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
 
     def create(self, request, *args, **kwargs):
+        print("Request data:", request.data)  # Debugging line
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
+            print("Serializer errors:", serializer.errors)  # Debugging line
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class CompanyDataView(generics.RetrieveAPIView):
     serializer_class = CompanySerializer
@@ -43,3 +46,9 @@ class StatisticsView(generics.RetrieveAPIView):
 
     def get_object(self):
         return Statistics.objects.get(company=self.request.user.company)
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

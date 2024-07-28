@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'; // Adjust this URL to match your backend
+axios.defaults.baseURL = 'http://127.0.0.1:8000/'; // Adjust this URL to match your backend
 
 export const AppContext = createContext();
 
@@ -44,9 +44,15 @@ export const AppProvider = ({ children }) => {
         }
     };
     
-    const register = async (name, email, password) => {
+
+    const register = async (username, email, password, companyName) => {
         try {
-            const response = await axios.post('/api/register/', { name, email, password });
+            const response = await axios.post('/api/register/', {
+                username,
+                email,
+                password,
+                company_name: companyName,
+            });
             console.log('Registration response:', response.data);
             await login(email, password);
         } catch (error) {
