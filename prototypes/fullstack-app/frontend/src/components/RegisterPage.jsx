@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../Context';
 
+
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -9,17 +10,23 @@ const RegisterPage = () => {
     const [companyName, setCompanyName] = useState('');
     const [error, setError] = useState('');
 
-    const { register } = useContext(AppContext);
+    const { register, login } = useContext(AppContext); // Add login here
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // First, register the user
             await register(username, email, password, companyName);
+            
+            // Then, attempt to log in
+            await login(email, password);
+            
             navigate('/dashboard');
+            
         } catch (error) {
-            console.error('Registration failed:', error.response?.data || error.message);
-            setError(error.response?.data?.detail || 'An error occurred. Please try again.');
+            console.error('Registration/Login failed:', error);
+            setError('Registration or login failed. Please try again.');
         }
     };
 

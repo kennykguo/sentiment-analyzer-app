@@ -10,6 +10,8 @@ from .serializers import (
     SentimentSerializer,
     StatisticsSerializer,
 )
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 
 class RegistrationView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
@@ -47,8 +49,6 @@ class StatisticsView(generics.RetrieveAPIView):
     def get_object(self):
         return Statistics.objects.get(company=self.request.user.company)
 
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

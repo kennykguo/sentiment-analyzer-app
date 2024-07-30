@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'; // Adjust this URL to match your backend
+axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const AppContext = createContext();
 
@@ -38,12 +39,13 @@ export const AppProvider = ({ children }) => {
             localStorage.setItem('refreshToken', refresh);
             setIsAuthenticated(true);
             await fetchUserData();
-        } catch (error) {
-            console.error('Login error:', error.response?.data || error.message);
+        } 
+        catch (error) {
+            // console.error('Login error:', error.response?.data || error.message);
+            console.error('Login error:', error.response?.data);
             throw error;
         }
     };
-    
 
     const register = async (username, email, password, companyName) => {
         try {
@@ -54,7 +56,8 @@ export const AppProvider = ({ children }) => {
                 company_name: companyName,
             });
             console.log('Registration response:', response.data);
-            await login(email, password);
+            // Instead of automatically logging in, return the response
+            return response.data;
         } catch (error) {
             console.error('Registration error:', error.response?.data || error.message);
             throw error;

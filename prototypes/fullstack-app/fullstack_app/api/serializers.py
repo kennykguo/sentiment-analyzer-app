@@ -44,14 +44,30 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+# class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     email = serializers.EmailField(required=True)
+
+#     def validate(self, attrs):
+#         try:
+#             user = User.objects.get(email=attrs['email'])
+#         except User.DoesNotExist:
+#             raise serializers.ValidationError('User with this email does not exist.')
+        
+#         attrs['username'] = user.username  # Set username in attrs for authentication
+#         return super().validate(attrs)
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    email = serializers.EmailField(required=True)
+    username_field = 'email'
 
     def validate(self, attrs):
-        try:
-            user = User.objects.get(email=attrs['email'])
-        except User.DoesNotExist:
-            raise serializers.ValidationError('User with this email does not exist.')
-        
-        attrs['username'] = user.username  # Set username in attrs for authentication
-        return super().validate(attrs)
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = User.objects.filter(email=email).first()
+            if user:
+                if user.check_password(password):
+                    attrs['username'] = user.username
+                    return super().validate(attrs)
+            raise serializers.ValidationError('No active account found with the given credentials')
+        else:
+            raise serializers.ValidationError('Must include "email" and "password".')
