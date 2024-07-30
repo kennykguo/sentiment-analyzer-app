@@ -16,12 +16,15 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // First, register the user
+            console.log('Registering user...');
             await register(username, email, password, companyName);
             
-            // Then, attempt to log in
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 2 seconds delay
+            
+            console.log('Logging in...');
             await login(email, password);
             
+            console.log('Navigating to dashboard...');
             navigate('/dashboard');
             
         } catch (error) {

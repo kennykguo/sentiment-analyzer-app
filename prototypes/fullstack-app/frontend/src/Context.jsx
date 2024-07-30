@@ -39,9 +39,10 @@ export const AppProvider = ({ children }) => {
             localStorage.setItem('refreshToken', refresh);
             setIsAuthenticated(true);
             await fetchUserData();
+             // Configure axios to use the access token for future requests
+            axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
         } 
         catch (error) {
-            // console.error('Login error:', error.response?.data || error.message);
             console.error('Login error:', error.response?.data);
             throw error;
         }
