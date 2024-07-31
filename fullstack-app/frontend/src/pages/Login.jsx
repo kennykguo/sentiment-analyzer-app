@@ -1,18 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { AppContext } from '../Context';
 import api from '../api';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
+import { AuthContext } from '../AuthContext';
+import { jwtDecode } from 'jwt-decode'; // Ensure this import matches your jwt-decode package
 
-const LoginPage = () => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const { login } = useContext(AppContext);
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const token = localStorage.getItem(ACCESS_TOKEN);
+            if (token) {
+                try {
+                    const decoded = jwtDecode(token);
+                    const now = Date.now() / 1000;
+                    if (decoded.exp > now) {
+                        login(decoded);
+                        navigate('/dashboard');
+                    }
+                } catch (error) {
+                    console.error('Token validation failed:', error);
+                }
+            }
+        };
+
+        checkAuth();
+    }, [login, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +42,8 @@ const LoginPage = () => {
             const res = await api.post('/api/token/', { email, password });
             localStorage.setItem(ACCESS_TOKEN, res.data.access);
             localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-            await login(res.data.user, res.data.company);
+            const decoded = jwtDecode(res.data.access);
+            login(decoded);
             navigate('/dashboard');
         } catch (error) {
             console.error('Login failed:', error);
@@ -57,4 +79,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,56 +1,51 @@
-// import React, { useState } from 'react';
-// import Register from './components/Register';
-// import Dashboard from './components/Dashboard';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./AuthContext";
 
-// function App() {
-//   const [token, setToken] = useState(null);
+function Logout() {
+  localStorage.clear();
+  return <Navigate to="/" />;
+}
 
-//   return (
-//     <div className="App">
-//       {token ? (
-//         <Dashboard token={token} />
-//       ) : (
-//         <Register setToken={setToken} />
-//       )}
-//     </div>
-//   );
-// }
-
-// export default App;
-
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
-import CompanyPage from './components/CompanyPage';
-import PrivateRoute from './components/PrivateRoute';
-import RegisterPage from './components/RegisterPage';
-import { AppProvider } from './Context';
-import './App.css'
-
-const App = () => {
+function App() {
   return (
-    <AppProvider>
-      <Router>
+
+    <AuthProvider>
+
+      <BrowserRouter>
+
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route 
-              path="company" 
+
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route
+              path="/dashboard"
               element={
-                <PrivateRoute>
-                  <CompanyPage />
-                </PrivateRoute>
-              } 
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
             />
+            <Route path="*" element={<NotFound />} />
           </Route>
+
         </Routes>
-      </Router>
-    </AppProvider>
+
+      </BrowserRouter>
+
+    </AuthProvider>
+    
   );
-};
+}
 
 export default App;
