@@ -6,4 +6,4 @@ const LoadingIndicator = () => {
     </div>
 }
 
-export default LoadingIndicator
+export default LoadingIndicator;

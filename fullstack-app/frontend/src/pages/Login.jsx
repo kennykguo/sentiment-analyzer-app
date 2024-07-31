@@ -20,6 +20,7 @@ const Login = () => {
             const token = localStorage.getItem(ACCESS_TOKEN);
             if (token) {
                 try {
+                    // Get JWT token and refresh if necessary
                     const decoded = jwtDecode(token);
                     const now = Date.now() / 1000;
                     if (decoded.exp > now) {
@@ -43,7 +44,7 @@ const Login = () => {
             localStorage.setItem(ACCESS_TOKEN, res.data.access);
             localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
             const decoded = jwtDecode(res.data.access);
-            login(decoded);
+            login(decoded); // Not sure what this does yet
             navigate('/dashboard');
         } catch (error) {
             console.error('Login failed:', error);

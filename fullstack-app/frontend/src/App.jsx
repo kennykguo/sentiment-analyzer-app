@@ -9,10 +9,10 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./AuthContext";
 
-function Logout() {
-  localStorage.clear();
-  return <Navigate to="/" />;
-}
+// function Logout() {
+//   localStorage.clear();
+//   return <Navigate to="/"/>;
+// }
 
 function App() {
   return (
@@ -27,7 +27,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/logout" element={<Logout />} />
+            {/* <Route path="/logout" element={<Logout />} /> */}
+
             <Route
               path="/dashboard"
               element={
@@ -36,7 +37,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
             <Route path="*" element={<NotFound />} />
+            
           </Route>
 
         </Routes>
@@ -44,7 +47,7 @@ function App() {
       </BrowserRouter>
 
     </AuthProvider>
-    
+
   );
 }
 
