@@ -1,0 +1,17 @@
+/* HomePage.css */
+.home__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+  }
+  
+  .home__title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .home__descr {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
