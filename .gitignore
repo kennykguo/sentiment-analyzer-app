@@ -1,3 +1,8 @@
-ml-setup/models
-ml-setup/data
+/dl_models/models
+/dl_models/data
+/dl_models/spacy-tests
+/dl_models/scripts
+/dl_models/examples
+
 /venv
+/archive
