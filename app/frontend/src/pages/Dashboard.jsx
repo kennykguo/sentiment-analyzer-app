@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from '../api';
 import LoadingIndicator from '../components/LoadingIndicator';
+import '../index.css';
 
 function Dashboard() {
     const [statistics, setStatistics] = useState([]);
@@ -25,28 +26,35 @@ function Dashboard() {
     };
 
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <p>Welcome to your dashboard. Here's a quick overview:</p>
-            <ul>
-                <li><Link to="/company">View Company Information</Link></li>
-                <li><Link to="/">Manage Your Notes</Link></li>
-            </ul>
+        <div className="min-h-screen bg-[#EEEEEE] flex flex-col items-center justify-center p-8">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+                <img src="src/assets/logo.jpg" alt="Logo" className="h-12 mb-6 mx-auto" />
+                <h1 className="text-3xl font-bold text-center text-[#201E43] mb-6">Dashboard</h1>
+                <p className="text-center mb-6">Welcome to your dashboard. Here's a quick overview:</p>
+                <div className="flex justify-center space-x-4 mb-8">
+                    <Link to="/company" className="bg-[#134B70] text-white py-2 px-4 rounded-md hover:bg-[#508C9B] transition duration-300 ease-in-out">
+                        View Company Information
+                    </Link>
+                </div>
 
-            <h2>Company Statistics</h2>
-            {loading ? (
-                <LoadingIndicator />
-            ) : error ? (
-                <p className="error">{error}</p>
-            ) : statistics.length === 0 ? (
-                <p>No statistics found for your company.</p>
-            ) : (
-                <ul>
-                    {statistics.map((stat, index) => (
-                        <li key={index}>{stat.name}: {stat.value}</li>
-                    ))}
-                </ul>
-            )}
+                <h2 className="text-2xl font-bold text-center text-[#201E43] mb-4">Company Statistics</h2>
+                {loading ? (
+                    <LoadingIndicator />
+                ) : error ? (
+                    <p className="text-red-500 text-center">{error}</p>
+                ) : statistics.length === 0 ? (
+                    <p className="text-center">No statistics found for your company.</p>
+                ) : (
+                    <ul className="space-y-2">
+                        {statistics.map((stat, index) => (
+                            <li key={index} className="flex justify-between items-center bg-gray-100 p-3 rounded">
+                                <span className="font-semibold">{stat.name}:</span>
+                                <span>{stat.value}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 }
