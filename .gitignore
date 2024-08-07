@@ -3,6 +3,7 @@
 /dl_models/spacy-tests
 /dl_models/scripts
 /dl_models/examples
+/app/backend/model_weights
 
 /venv
 /archive

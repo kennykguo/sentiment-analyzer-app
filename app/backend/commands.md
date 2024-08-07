@@ -4,7 +4,7 @@ python manage.py shell
 # In the shell:
 from api.models import Company, Sentiment
 
-# Get the company with ID 73
+# Get the company with ID {id}
 company = Company.objects.get(id=73)
 
 # Retrieve and print sentiments
