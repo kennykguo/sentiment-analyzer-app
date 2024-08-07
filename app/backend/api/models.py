@@ -10,20 +10,22 @@ class Company(models.Model):
         return self.name
 
 class Sentiment(models.Model):
-    # Every review has a reverse relationship to a Company
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='sentiments')
     review = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    sentiment_score = models.FloatField()
+    # created_at = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
 
     def __str__(self):
         return f"Sentiment for {self.company.name}"
-
+    
 
 class Statistics(models.Model):
-    # Every statistic has a reverse relationship to a Company
     company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name='statistics')
-    mean = models.FloatField()
-    standard_deviation = models.FloatField()
+    mean_sentiment = models.FloatField(default=0.0)
+    sentiment_count = models.IntegerField(default=0)
+    positive_sentiment_count = models.IntegerField(default=0)
+    negative_sentiment_count = models.IntegerField(default=0)
+    neutral_sentiment_count = models.IntegerField(default=0)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):

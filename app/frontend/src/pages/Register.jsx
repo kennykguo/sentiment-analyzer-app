@@ -1,3 +1,4 @@
+// Register.js
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
@@ -77,8 +78,8 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy-dark to-navy-light py-12">
-            <div className="bg-gradient-to-br from-navy-medium to-navy-light p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300 ease-in-out">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#201E43] to-[#134B70] py-12">
+            <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300 ease-in-out">
                 <h1 className="text-2xl font-bold text-center mb-6 text-white">Register</h1>
                 {error && <p className="text-red-500 text-center mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,7 +89,7 @@ const Register = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
                         required
-                        className="w-full px-4 py-2 bg-navy-dark border border-navy-light rounded-md focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 text-sm"
+                        className="w-full px-4 py-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm"
                     />
                     <input
                         type="password"
@@ -96,7 +97,7 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                         required
-                        className="w-full px-4 py-2 bg-navy-dark border border-navy-light rounded-md focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 text-sm"
+                        className="w-full px-4 py-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm"
                     />
                     <input
                         type="text"
@@ -104,12 +105,12 @@ const Register = () => {
                         onChange={(e) => setCompanyName(e.target.value)}
                         placeholder="Company Name"
                         required
-                        className="w-full px-4 py-2 bg-navy-dark border border-navy-light rounded-md focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 text-sm"
+                        className="w-full px-4 py-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm"
                     />
                     <button 
                         type="submit" 
                         disabled={loading}
-                        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out text-sm"
+                        className="w-full bg-[#508C9B] text-white py-2 rounded-md hover:bg-[#134B70] transition duration-300 ease-in-out text-sm"
                     >
                         Register
                     </button>

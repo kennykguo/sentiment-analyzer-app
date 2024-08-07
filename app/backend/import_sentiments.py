@@ -1,42 +1,37 @@
-import psycopg2
-import random
+import os
+import django
+import pandas as pd
+from django.db import transaction
 
-# Connect to the database
-conn = psycopg2.connect(
-    dbname="sentiment_app",
-    user="kennykguo",
-    password="rex25244",
-    host="localhost",
-    port="5432"
-)
+# Set up Django environment
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
+django.setup()
 
-cur = conn.cursor()
+from api.models import Company, Sentiment
 
-# Get all companies
-cur.execute("SELECT id FROM api_company")
-companies = cur.fetchall()
+def import_sentiments_from_excel():
+    sentiment_folder = os.path.join(os.path.dirname(__file__), 'sentiment_data')
+    
+    for filename in os.listdir(sentiment_folder):
+        if filename.endswith('.xlsx'):
+            try:
+                company_id = int(filename.split('.')[0])
+                company = Company.objects.get(id=company_id)
+            except (ValueError, Company.DoesNotExist):
+                print(f"Invalid company ID or company not found. Skipping file: {filename}")
+                continue
+            
+            file_path = os.path.join(sentiment_folder, filename)
+            df = pd.read_excel(file_path, header=None, names=['review'])
+            
+            with transaction.atomic():
+                for _, row in df.iterrows():
+                    Sentiment.objects.create(
+                        company=company,
+                        review=row['review'],
+                        sentiment_score=0.0  # Default value for sentiment_score
+                    )
+            
+            print(f"Processed sentiments for company ID: {company_id}")
 
-# Sample sentiments
-sample_sentiments = [
-    "Great product, highly recommended!",
-    "Terrible experience, would not buy again.",
-    "Average service, nothing special.",
-    "Exceeded my expectations, will definitely return.",
-    "Needs improvement in customer support."
-]
-
-# Import sentiments for each company
-for company_id in companies:
-    num_sentiments = random.randint(5, 20)
-    for _ in range(num_sentiments):
-        sentiment = random.choice(sample_sentiments)
-        cur.execute(
-            "INSERT INTO api_sentiment (company_id, review) VALUES (%s, %s)",
-            (company_id[0], sentiment)
-        )
-
-conn.commit()
-cur.close()
-conn.close()
-
-print("Sentiments imported successfully.")
+import_sentiments_from_excel()

@@ -4,7 +4,7 @@ import api from '../api';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
 import { AuthContext } from '../AuthContext';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import '../index.css';
 
 const Login = () => {
@@ -55,8 +55,8 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy-dark to-navy-light">
-            <div className="bg-gradient-to-br from-navy-medium to-navy-light p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300 ease-in-out">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#201E43] to-[#134B70]">
+            <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300 ease-in-out">
                 <h1 className="text-2xl font-bold text-center mb-6 text-white">Login</h1>
                 {error && <p className="text-red-500 text-center mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -67,7 +67,7 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
                             required
-                            className="w-full px-4 py-2 bg-navy-dark border border-navy-light rounded-md focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 text-sm"
+                            className="w-full px-4 py-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm"
                         />
                     </div>
                     <div className="relative">
@@ -77,13 +77,13 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             required
-                            className="w-full px-4 py-2 bg-navy-dark border border-navy-light rounded-md focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 text-sm"
+                            className="w-full px-4 py-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm"
                         />
                     </div>
                     <button 
                         type="submit" 
                         disabled={loading}
-                        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out text-sm"
+                        className="w-full bg-[#508C9B] text-white py-2 rounded-md hover:bg-[#134B70] transition duration-300 ease-in-out text-sm"
                     >
                         Login
                     </button>
