@@ -44,16 +44,6 @@ class CompanyDataView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user.company
 
-# class SentimentListView(generics.ListCreateAPIView):
-#     serializer_class = SentimentSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     def get_queryset(self):
-#         return Sentiment.objects.filter(company=self.request.user.company)
-
-#     def perform_create(self, serializer):
-#         serializer.save(company=self.request.user.company)
-
 # Returns the current statistics of the current company
 class StatisticsView(generics.RetrieveUpdateAPIView):
     serializer_class = StatisticsSerializer

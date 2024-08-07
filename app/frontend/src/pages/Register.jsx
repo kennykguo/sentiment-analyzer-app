@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
 import { AuthContext } from '../AuthContext';
 import { jwtDecode } from 'jwt-decode'; // Ensure this import matches your jwt-decode package
 
+
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
