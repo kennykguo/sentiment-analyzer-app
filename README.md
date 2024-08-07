@@ -17,4 +17,3 @@ ML4U is a cutting-edge application designed to revolutionize businesses through 
 ## Tech Stack
 - **Frontend**: React, TailwindCSS
 - **Backend**: Django
-- **Styling**: TailwindCSS for responsive and modern UI
