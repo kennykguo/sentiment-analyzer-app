@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Company, Sentiment, Statistics
+from .models import Company, Sentiment
+from .models import SentimentAnalysis
 
 User = get_user_model()
 
@@ -24,12 +25,13 @@ class SentimentSerializer(serializers.ModelSerializer):
         extra_kwargs = {'company': {'read_only': True}}
 
 
-class StatisticsSerializer(serializers.ModelSerializer):
+class SentimentAnalysisSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Statistics
-        fields = ('id', 'mean', 'standard_deviation', 'last_updated', 'company')
-        extra_kwargs = {'company': {'read_only': True}}
-
+        model = SentimentAnalysis
+        fields = [
+            'id', 'review', 'cleaned_review', 'vader_score', 'model_prediction', 
+            'avg_sentiment_score', 'avg_word_count'
+        ]
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)

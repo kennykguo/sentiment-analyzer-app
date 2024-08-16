@@ -1,8 +1,8 @@
 import string
-import re
 
 def clean_text(text):
-    text = text.translate(str.maketrans('', '', string.punctuation))
-    text = re.sub(r'\s+', ' ', text).strip()
-    text = text.lower()
+    # Remove punctuation and convert to lowercase
+    text = ''.join([char.lower() for char in text if char not in string.punctuation])
+    # Remove extra whitespace
+    text = ' '.join(text.split())
     return text

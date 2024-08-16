@@ -1,19 +1,23 @@
+import spacy
+from collections import Counter
+
+nlp = spacy.load('en_core_web_sm')
+
 def get_pos_tags(texts):
     all_tags = []
     for text in texts:
-        tokens = word_tokenize(text)
-        tags = pos_tag(tokens)
+        doc = nlp(text)
+        tags = [(token.text, token.pos_) for token in doc if not token.is_stop and token.is_alpha]
         all_tags.extend(tags)
     return all_tags
 
-
-def top_nouns_verbs_adjectives(tags, top_n=10):
-    nouns = [word for word, pos in tags if pos in ['NN', 'NNS', 'NNP', 'NNPS']]
-    verbs = [word for word, pos in tags if pos.startswith('VB')]
-    adjectives = [word for word, pos in tags if pos in ['JJ', 'JJR', 'JJS']]
+def top_pos_tags(tags, top_n=20):
+    nouns = [word.lower() for word, pos in tags if pos == 'NOUN']
+    verbs = [word.lower() for word, pos in tags if pos == 'VERB']
+    adjectives = [word.lower() for word, pos in tags if pos == 'ADJ']
     
     return {
-        'nouns': nltk.FreqDist(nouns).most_common(top_n),
-        'verbs': nltk.FreqDist(verbs).most_common(top_n),
-        'adjectives': nltk.FreqDist(adjectives).most_common(top_n)
+        'nouns': Counter(nouns).most_common(top_n),
+        'verbs': Counter(verbs).most_common(top_n),
+        'adjectives': Counter(adjectives).most_common(top_n)
     }

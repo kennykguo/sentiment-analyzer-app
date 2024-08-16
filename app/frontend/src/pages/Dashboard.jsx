@@ -15,7 +15,8 @@ function Dashboard() {
 
     const fetchStatistics = async () => {
         try {
-            const response = await api.get('/api/company/statistics/');
+            const response = await api.get('/api/statistics/');
+            console.log('Fetched response data:', response.data);
             setStatistics(response.data);
         } catch (error) {
             console.error('Failed to fetch statistics:', error);
@@ -47,9 +48,12 @@ function Dashboard() {
                 ) : (
                     <ul className="space-y-2">
                         {statistics.map((stat, index) => (
-                            <li key={index} className="flex justify-between items-center bg-gray-100 p-3 rounded">
-                                <span className="font-semibold">{stat.name}:</span>
-                                <span>{stat.value}</span>
+                            <li key={index} className="flex flex-col bg-gray-100 p-3 rounded">
+                                <p className="font-semibold">Review: {stat.review}</p>
+                                <p>VADER Score: {stat.vader_score}</p>
+                                <p>Prediction: {stat.model_prediction}</p>
+                                <p>Avg. Sentiment Score: {stat.avg_sentiment_score}</p>
+                                <p>Avg. Word Count: {stat.avg_word_count}</p>
                             </li>
                         ))}
                     </ul>
